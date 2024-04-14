@@ -1,0 +1,2 @@
+- Update composer dependencies
+- Add global tags key/value field to the settings form

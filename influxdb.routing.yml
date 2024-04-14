@@ -1,0 +1,28 @@
+influxdb.admin:
+  path: '/admin/config/services/influxdb'
+  defaults:
+    _title: 'InfluxDB'
+    _controller: '\Drupal\system\Controller\SystemController::systemAdminMenuBlockPage'
+  requirements:
+    _permission: 'administer influxdb'
+influxdb.admin.settings:
+  path: '/admin/config/services/influxdb/settings'
+  defaults:
+    _title: 'Settings'
+    _form: 'Drupal\influxdb\Form\InfluxDbAdminForm'
+  requirements:
+    _permission: 'administer influxdb'
+influxdb.metrics:
+  path: '/influxdb/metrics'
+  defaults:
+    _title: 'InfluxDB Metrics'
+    _controller: 'Drupal\influxdb\Controller\InfluxDbController::metrics'
+  requirements:
+    _permission: 'access influxdb metrics'
+influxdb.admin.test:
+  path: '/admin/config/services/influxdb/test'
+  defaults:
+    _title: 'Test'
+    _form: 'Drupal\influxdb\Form\InfluxDbTestForm'
+  requirements:
+    _permission: 'administer influxdb'

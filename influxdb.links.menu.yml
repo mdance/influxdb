@@ -1,0 +1,18 @@
+influxdb.admin:
+  title: 'InfluxDB'
+  description: 'Provides InfluxDB functionality.'
+  route_name: influxdb.admin
+  parent: system.admin_config_services
+  weight: 0
+influxdb.admin.settings:
+  title: 'Settings'
+  description: 'Provides InfluxDB settings.'
+  route_name: influxdb.admin.settings
+  parent: influxdb.admin
+  weight: 0
+influxdb.admin.test:
+  title: 'Test'
+  description: 'Test your endpoint.'
+  route_name: influxdb.admin.test
+  parent: influxdb.admin
+  weight: 1

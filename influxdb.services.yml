@@ -1,0 +1,31 @@
+services:
+  influxdb_guzzle_client:
+    class: Drupal\influxdb\InfluxDbGuzzleClient
+  influxdb_config:
+    class: Drupal\influxdb\InfluxDbConfigService
+    arguments:
+      - '@config.factory'
+      - '@state'
+      - '@influxdb_guzzle_client'
+  influxdb:
+    class: Drupal\influxdb\InfluxDbService
+    arguments:
+      - '@event_dispatcher'
+      - '@config.factory'
+      - '@influxdb_config'
+      - '@influxdb_client'
+  influxdb_client_factory:
+    class: Drupal\influxdb\InfluxDbClientFactory
+    arguments:
+      - '@influxdb_config'
+  influxdb_client:
+    class: Drupal\influxdb\InfluxDbClientInterface
+    factory: ['@influxdb_client_factory', 'get']
+  influxdb_event_subscriber:
+    class: Drupal\influxdb\EventSubscriber\InfluxDbEventSubscriber
+    arguments:
+      - '@config.factory'
+      - '@entity_type.manager'
+      - '@influxdb'
+    tags:
+      - { name: event_subscriber }

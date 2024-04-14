@@ -1,0 +1,4 @@
+administer influxdb:
+  title: 'Administer InfluxDB'
+access influxdb metrics:
+  title: 'Access InfluxDB metrics'

@@ -1,0 +1,10 @@
+logging: true
+schema: http
+host: influxdb
+port: 8086
+organization: ''
+bucket: 'drupal'
+measurement: 'drupal_influxdb'
+precision: 's'
+default_metrics: true
+debug: false

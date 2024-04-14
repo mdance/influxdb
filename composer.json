@@ -1,0 +1,14 @@
+{
+    "name": "drupal/influxdb",
+    "type": "drupal-module",
+    "description": "Provides InfluxDB functionality.",
+    "homepage": "http://drupal.org/project/influxdb",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": "^7.3 || ^8.0",
+        "drupal/core": "^8 || ^9 || ^10",
+        "influxdata/influxdb-client-php": "~3.4"
+    },
+    "require-dev": {
+    }
+}

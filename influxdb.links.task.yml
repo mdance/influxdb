@@ -1,0 +1,9 @@
+influxdb.admin.settings:
+  route_name: influxdb.admin.settings
+  base_route: influxdb.admin
+  title: 'Settings'
+
+influxdb.admin.test:
+  route_name: influxdb.admin.test
+  base_route: influxdb.admin
+  title: 'Test'

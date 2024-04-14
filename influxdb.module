@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Provides InfluxDB functionality.
+ */
+
+/**
+ * Implements hook_cron().
+ */
+function influxdb_cron() {
+  \Drupal::service('influxdb')->cron();
+}
