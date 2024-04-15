@@ -194,4 +194,11 @@ class InfluxDbService implements InfluxDbServiceInterface {
     return $output;
   }
 
+  /**
+   * {@inheritDoc}
+   */
+  public function getClient(): InfluxDbClientInterface {
+    return $this->client;
+  }
+
 }

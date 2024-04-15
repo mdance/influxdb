@@ -134,4 +134,9 @@ interface InfluxDbServiceInterface {
    */
   public function getTemplatePoint(): Point;
 
+  /**
+   * Gets the InfluxDb client.
+   */
+  public function getClient(): InfluxDbClientInterface;
+
 }
