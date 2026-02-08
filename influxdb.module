@@ -9,5 +9,15 @@
  * Implements hook_cron().
  */
 function influxdb_cron() {
+  $state = \Drupal::state();
+  $last_cron = $state->get('influxdb.last_cron', 0);
+  $interval = 86400;
+  $now = \Drupal::time()->getRequestTime();
+
+  if (($now - $last_cron) < $interval) {
+    return;
+  }
+
   \Drupal::service('influxdb')->cron();
+  $state->set('influxdb.last_cron', $now);
 }
