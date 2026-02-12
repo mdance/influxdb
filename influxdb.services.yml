@@ -5,8 +5,8 @@ services:
     class: Drupal\influxdb\InfluxDbConfigService
     arguments:
       - '@config.factory'
-      - '@state'
       - '@influxdb_guzzle_client'
+      - '@key.repository'
   influxdb:
     class: Drupal\influxdb\InfluxDbService
     arguments:

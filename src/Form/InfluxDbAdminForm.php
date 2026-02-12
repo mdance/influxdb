@@ -94,9 +94,9 @@ class InfluxDbAdminForm extends ConfigFormBase {
     ];
 
     $form['token'] = [
-      '#type' => 'password',
+      '#type' => 'key_select',
       '#title' => $this->t('Token'),
-      '#default_value' => $this->service->getToken(),
+      '#default_value' => $this->service->getTokenKeyId(),
     ];
 
     $form['measurement'] = [
@@ -140,16 +140,6 @@ class InfluxDbAdminForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->cleanValues()->getValues();
-
-    $keys = [
-      'token',
-    ];
-
-    foreach ($keys as $key) {
-      if (empty($values[$key])) {
-        unset($values[$key]);
-      }
-    }
 
     $this->service->saveConfiguration($values);
 

@@ -20,6 +20,9 @@ influxdb.settings:
     bucket:
       type: string
       label: 'Bucket'
+    token:
+      type: string
+      label: 'Token Key'
     measurement:
       type: string
       label: 'Measurement'

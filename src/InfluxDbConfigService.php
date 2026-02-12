@@ -4,8 +4,8 @@ namespace Drupal\influxdb;
 
 use Drupal\Core\Config\Config;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\State\StateInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Drupal\key\KeyRepositoryInterface;
 use GuzzleHttp\ClientInterface;
 
 /**
@@ -25,9 +25,9 @@ class InfluxDbConfigService implements InfluxDbConfigServiceInterface {
    */
   public function __construct(
     protected ConfigFactoryInterface $configFactory,
-    protected StateInterface $state,
     protected ClientInterface $client,
-    ) {
+    protected KeyRepositoryInterface $keyRepository,
+  ) {
     $this->config = $configFactory->get(InfluxDbConstants::SETTINGS);
   }
 
@@ -77,7 +77,24 @@ class InfluxDbConfigService implements InfluxDbConfigServiceInterface {
    * {@inheritDoc}
    */
   public function getToken(): string {
-    return $this->getConfiguration()['token'] ?? '';
+    $key_id = $this->config->get('token') ?: 'influxdb_token';
+    $key = $this->keyRepository->getKey($key_id);
+
+    if ($key) {
+      return $key->getKeyValue() ?: '';
+    }
+
+    return '';
+  }
+
+  /**
+   * Gets the Key entity ID for the token.
+   *
+   * @return string
+   *   The Key entity ID.
+   */
+  public function getTokenKeyId(): string {
+    return $this->config->get('token') ?: 'influxdb_token';
   }
 
   /**
@@ -124,26 +141,12 @@ class InfluxDbConfigService implements InfluxDbConfigServiceInterface {
    * {@inheritDoc}
    */
   public function saveConfiguration(array $input): self {
-    $keys = [
-      'token',
-    ];
-
-    $state = $this->state->get(InfluxDbConstants::SETTINGS, []);
-
-    foreach ($keys as $key) {
-      if (isset($input[$key])) {
-        $state[$key] = $input[$key];
-        unset($input[$key]);
-      }
-    }
-
     $config = $this->configFactory->getEditable(InfluxDbConstants::SETTINGS);
 
     foreach ($input as $key => $value) {
       $config->set($key, $value);
     }
 
-    $this->state->set(InfluxDbConstants::SETTINGS, $state);
     $config->save();
 
     return $this;
@@ -153,12 +156,7 @@ class InfluxDbConfigService implements InfluxDbConfigServiceInterface {
    * {@inheritDoc}
    */
   public function getConfiguration(): array {
-    $output = $this->config->get();
-    $state = $this->state->get(InfluxDbConstants::SETTINGS, []);
-
-    $output = array_merge($output, $state);
-
-    return $output;
+    return $this->config->get() ?: [];
   }
 
   /**
