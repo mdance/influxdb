@@ -90,6 +90,16 @@ class InfluxDbService implements InfluxDbServiceInterface {
   }
 
   /**
+   * Gets the Key entity ID for the token.
+   *
+   * @return string
+   *   The Key entity ID.
+   */
+  public function getTokenKeyId(): string {
+    return $this->configService->getTokenKeyId();
+  }
+
+  /**
    * {@inheritDoc}
    */
   public function getMeasurement(): string {
