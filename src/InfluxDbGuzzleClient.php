@@ -20,4 +20,11 @@ class InfluxDbGuzzleClient extends Client implements ClientInterface {
     return $this->send($request);
   }
 
+  /**
+   * Prevent crash when InfluxDB2 Client tries to stringify options for errors.
+   */
+  public function __toString(): string {
+    return 'InfluxDbGuzzleClient';
+  }
+
 }
